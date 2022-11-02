@@ -1,2 +1,6 @@
 token.txt
 .idea/
+images/
+styles/
+__pycache__/
+.DS_Store
