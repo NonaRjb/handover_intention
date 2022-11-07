@@ -39,7 +39,7 @@ class GuiBase:
             win=self.win,
             units="norm",
             radius=(rx, ry),
-            pos=(-0.9, -0.9),
+            pos=(-0.96, -0.94),
             fillColor='white',
             lineColor='white'
         )
@@ -269,7 +269,7 @@ class GuiBase:
             font="Open Sans",
             fontFiles=font_file,
             alignText="center",
-            pos=(0, -0.2),
+            pos=(0, -0.1),
             bold=True,
             color="yellow",
             win=self.win,
@@ -277,27 +277,34 @@ class GuiBase:
         )
         count_down.size = (0.5, 0.3)
         count_down.wrapWidth = 2
+        cnt_down = 3
 
         # Instruction
         instruction_img = visual.ImageStim(
             image=env_img,
             units="norm",
             size=(0.5, 0.9),
-            pos=(0, 0),
+            pos=(0, 0.1),
             win=self.win
         )
 
-        t = CONFIG.CONSTANTS.INS_DUR
-        while t > 0:
+        instruction_img.draw()
+        self.marker.draw()
+        self.win.flip()
+        core.wait(CONFIG.CONSTANTS.INS_DUR-cnt_down)
+        event.clearEvents()
+        while cnt_down > 0:
+            count_down.text = str(cnt_down)
             instruction_img.draw()
+            count_down.draw()
             self.marker.draw()
-            if t < 4:
-                count_down.text = str(t)
-                count_down.draw()
             self.win.flip()
             core.wait(1)
             event.clearEvents()
-            t -= 1
+            cnt_down -= 1
+
+        event.clearEvents()
+        self.win.flip()
 
         # Preparation
         instruction_img.image = w_cross
@@ -308,6 +315,9 @@ class GuiBase:
         core.wait(CONFIG.CONSTANTS.PREP_DUR)
         event.clearEvents()
 
+        event.clearEvents()
+        self.win.flip()
+
         # Execution
         instruction_img.image = r_cross
         instruction_img.size = (0.2, 0.36)
@@ -316,6 +326,9 @@ class GuiBase:
         self.win.flip()
         core.wait(CONFIG.CONSTANTS.EXEC_DUR)
         event.clearEvents()
+
+        event.clearEvents()
+        self.win.flip()
 
         # Rest
         instruction_img.image = g_cross

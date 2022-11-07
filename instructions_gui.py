@@ -14,9 +14,9 @@ intro_text = ["Hello dear participant! Welcome to our experiment!",
               "Now let\'s start!\n Press Space Key When You Are Ready"]
 
 if __name__ == "__main__":
-    trial_sequence = [{"type": "hand", "side": "l"},
-                      {"type": "move", "side": "l"},
-                      {"type": "hand", "side": "r"},
-                      {"type": "move", "side": "r"}]
+    trial_sequence = [{"type": "hand", "side": "l"}]
+                      # {"type": "move", "side": "l"},
+                      # {"type": "hand", "side": "r"},
+                      # {"type": "move", "side": "r"}]
     gui = GuiBase(intro_text)
     gui.start(trial_sequence)
