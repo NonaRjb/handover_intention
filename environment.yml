@@ -1,0 +1,8 @@
+name: handover
+channels:
+  - defaults
+dependencies:
+  - psychopy
+  - pip
+  - easydict
+prefix: /Users/nonarajabi/opt/anaconda3/envs/handover

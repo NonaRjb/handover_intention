@@ -8,6 +8,7 @@ class GuiBase:
     def __init__(self, intro_text):
         self.win = None
         self.clock = None
+        self.marker = None
         self.kb = keyboard.Keyboard()
         self.intro_text = intro_text
 
@@ -30,6 +31,19 @@ class GuiBase:
             allowGUI=True
         )
 
+        rx = 0.04
+        rpix = rx * width_pix
+        ry = rpix / height_pix
+
+        self.marker = visual.Circle(
+            win=self.win,
+            units="norm",
+            radius=(rx, ry),
+            pos=(-0.9, -0.9),
+            fillColor='white',
+            lineColor='white'
+        )
+
         self.clock = core.Clock()
         self.kb.clock.reset()
 
@@ -41,10 +55,10 @@ class GuiBase:
         env_2 = os.path.join(CONFIG.PATHS.IMGS, "env2.png")
         env_3 = os.path.join(CONFIG.PATHS.IMGS, "env3.png")
         env_4 = os.path.join(CONFIG.PATHS.IMGS, "env4.png")
-        hand_1 = os.path.join(CONFIG.PATHS.IMGS, "hand1.png")
-        hand_2 = os.path.join(CONFIG.PATHS.IMGS, "hand2.png")
-        move_1 = os.path.join(CONFIG.PATHS.IMGS, "move1.png")
-        move_2 = os.path.join(CONFIG.PATHS.IMGS, "move2.png")
+        hand_1 = os.path.join(CONFIG.PATHS.IMGS, "hand_l.png")
+        hand_2 = os.path.join(CONFIG.PATHS.IMGS, "hand_r.png")
+        move_1 = os.path.join(CONFIG.PATHS.IMGS, "move_l.png")
+        move_2 = os.path.join(CONFIG.PATHS.IMGS, "move_r.png")
 
         intro_text = visual.TextStim(
             font="Open Sans",
@@ -215,11 +229,112 @@ class GuiBase:
 
         return
 
-    def experiment_setup(self):
-        pass
+    def trial_manager(self, trial_sequence):
+        instruction_images = [os.path.join(CONFIG.PATHS.IMGS, "hand_l.png"),
+                              os.path.join(CONFIG.PATHS.IMGS, "hand_r.png"),
+                              os.path.join(CONFIG.PATHS.IMGS, "move_l.png"),
+                              os.path.join(CONFIG.PATHS.IMGS, "move_r.png")]
+        for trial in trial_sequence:
+            if trial["type"] == "hand" and trial["side"] == "l":
+                self.trial(instruction_images[0])
+            if trial["type"] == "hand" and trial["side"] == "r":
+                self.trial(instruction_images[1])
+            if trial["type"] == "move" and trial["side"] == "l":
+                self.trial(instruction_images[2])
+            if trial["type"] == "move" and trial["side"] == "r":
+                self.trial(instruction_images[3])
 
-    def start(self):
+    def trial(self, env_img):
+
+        w_cross = os.path.join(CONFIG.PATHS.IMGS, "white_cross.png")
+        r_cross = os.path.join(CONFIG.PATHS.IMGS, "red_cross.png")
+        g_cross = os.path.join(CONFIG.PATHS.IMGS, "green_cross.png")
+        font_file = [os.path.join(CONFIG.PATHS.STYLES, "OpenSans-Light.ttf")]
+
+        press_text = visual.TextStim(
+            font="Open Sans",
+            fontFiles=font_file,
+            alignText="center",
+            pos=(0, -0.3),
+            color="white",
+            win=self.win,
+            units="norm"
+        )
+
+        press_text.text = "(Press Space key to continue)"
+        press_text.size = (0.1, 0.06)
+        press_text.wrapWidth = 1.5
+
+        count_down = visual.TextStim(
+            font="Open Sans",
+            fontFiles=font_file,
+            alignText="center",
+            pos=(0, -0.2),
+            bold=True,
+            color="yellow",
+            win=self.win,
+            units="norm"
+        )
+        count_down.size = (0.5, 0.3)
+        count_down.wrapWidth = 2
+
+        # Instruction
+        instruction_img = visual.ImageStim(
+            image=env_img,
+            units="norm",
+            size=(0.5, 0.9),
+            pos=(0, 0),
+            win=self.win
+        )
+
+        t = CONFIG.CONSTANTS.INS_DUR
+        while t > 0:
+            instruction_img.draw()
+            self.marker.draw()
+            if t < 4:
+                count_down.text = str(t)
+                count_down.draw()
+            self.win.flip()
+            core.wait(1)
+            event.clearEvents()
+            t -= 1
+
+        # Preparation
+        instruction_img.image = w_cross
+        instruction_img.size = (0.2, 0.36)
+        instruction_img.draw()
+        self.marker.draw()
+        self.win.flip()
+        core.wait(CONFIG.CONSTANTS.PREP_DUR)
+        event.clearEvents()
+
+        # Execution
+        instruction_img.image = r_cross
+        instruction_img.size = (0.2, 0.36)
+        instruction_img.draw()
+        self.marker.draw()
+        self.win.flip()
+        core.wait(CONFIG.CONSTANTS.EXEC_DUR)
+        event.clearEvents()
+
+        # Rest
+        instruction_img.image = g_cross
+        instruction_img.size = (0.2, 0.36)
+        instruction_img.draw()
+        self.marker.draw()
+        if CONFIG.CONSTANTS.REST_DUR == "inf":
+            press_text.draw()
+            self.win.flip()
+            key = self.kb.waitKeys(keyList=['space'], waitRelease=True)
+            if "space" in key:
+                event.clearEvents()
+        else:
+            self.win.flip()
+            core.wait(CONFIG.CONSTANTS.PREP_DUR)
+            event.clearEvents()
+
+    def start(self, trial_sequence):
         self.initial_settings()
         self.intro()
-
+        self.trial_manager(trial_sequence)
         return

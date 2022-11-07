@@ -10,9 +10,13 @@ intro_text = ["Hello dear participant! Welcome to our experiment!",
               "If the instruction is to hand the object to the robot, it will look like one of the images below.\n"
               "For example, if the arrow is in the left, you pick the object from its current location (A or C), and "
               "hand it to the robot.",
-              "The instructions for each trial will be visually provided to you at the beginning that trial.",
+              "The instructions for each trial will be visually provided to you at the beginning of that trial.",
               "Now let\'s start!\n Press Space Key When You Are Ready"]
 
 if __name__ == "__main__":
+    trial_sequence = [{"type": "hand", "side": "l"},
+                      {"type": "move", "side": "l"},
+                      {"type": "hand", "side": "r"},
+                      {"type": "move", "side": "r"}]
     gui = GuiBase(intro_text)
-    gui.start()
+    gui.start(trial_sequence)
