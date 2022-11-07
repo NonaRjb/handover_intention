@@ -59,6 +59,7 @@ class GuiBase:
         hand_2 = os.path.join(CONFIG.PATHS.IMGS, "hand_r.png")
         move_1 = os.path.join(CONFIG.PATHS.IMGS, "move_l.png")
         move_2 = os.path.join(CONFIG.PATHS.IMGS, "move_r.png")
+        pipeline = os.path.join(CONFIG.PATHS.IMGS, "pipeline.png")
 
         intro_text = visual.TextStim(
             font="Open Sans",
@@ -109,9 +110,9 @@ class GuiBase:
         )
 
         intro_text.color = "white"
-        intro_text.size = (0.5, 0.15)
+        intro_text.size = (0.2, 0.1)
         intro_text.wrapWidth = 1.5
-        intro_text.pos = (0, 0.4)
+        intro_text.pos = (0, 0.3)
 
         press_text.text = "(Press Space key to continue)"
         press_text.color = "white"
@@ -180,6 +181,7 @@ class GuiBase:
 
         intro_text.text = self.intro_text[4]
         intro_text.size = (0.2, 0.1)
+        intro_text.pos = (0, 0.4)
 
         intro_text.draw()
         press_text.draw()
@@ -196,6 +198,7 @@ class GuiBase:
 
         intro_text.text = self.intro_text[5]
         intro_text.size = (0.2, 0.1)
+        intro_text.pos = (0, 0.4)
 
         intro_text.draw()
         press_text.draw()
@@ -208,9 +211,15 @@ class GuiBase:
 
         # seventh page
         intro_text.text = self.intro_text[6]
-        intro_text.size = (0.5, 0.15)
+        intro_text.size = (0.2, 0.1)
+        intro_text.pos = (0, 0.3)
+
+        experiment_env.image = pipeline
+        experiment_env.size = (1.3, 0.8)
+        experiment_env.pos = (-0.02, -0.55)
 
         intro_text.draw()
+        experiment_env.draw()
         press_text.draw()
         self.win.flip()
         key = self.kb.waitKeys(keyList=['space'], waitRelease=True)
@@ -219,6 +228,7 @@ class GuiBase:
 
         # eighth page
         intro_text.text = self.intro_text[7]
+        intro_text.size = (0.2, 0.1)
 
         intro_text.draw()
         press_text.draw()
