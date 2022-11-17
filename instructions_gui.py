@@ -1,4 +1,6 @@
 from gui_base import GuiBase
+import json
+import pickle
 
 intro_text = ["Hello dear participant! Welcome to our experiment!",
               "In this experiment, you will either hand objects to the robot or move them to another location.",
@@ -15,9 +17,34 @@ intro_text = ["Hello dear participant! Welcome to our experiment!",
               "Now let\'s start!\n Press Space Key When You Are Ready"]
 
 if __name__ == "__main__":
-    trial_sequence = [{"type": "hand", "side": "l"}]
-                      # {"type": "move", "side": "l"},
-                      # {"type": "hand", "side": "r"},
-                      # {"type": "move", "side": "r"}]
-    gui = GuiBase(intro_text)
-    gui.start(trial_sequence)
+    data_file = "trials.txt"
+    def parse(d):
+        dictionary = dict()
+        # Removes curly braces and splits the pairs into a list
+        pairs = d.strip('{}').split(', ')
+        for i in pairs:
+            pair = i.split(': ')
+            # Other symbols from the key-value pair should be stripped.
+            dictionary[pair[0].strip('\'\'\"\"')] = pair[1].strip('\'\'\"\"')
+        return dictionary
+
+
+    try:
+        data_file = open(data_file, 'rt')
+        lines = data_file.read().split('\n')
+        trial_sequence = []
+        for l in lines:
+            if l != '':
+                dictionary = parse(l)
+                trial_sequence.append(dictionary)
+        data_file.close()
+        # gui = GuiBase(intro_text)
+        # gui.start(trial_sequence)
+    except:
+        print("Something unexpected occurred!")
+
+    # trial_sequence = [{"type": "hand", "side": "l"},
+    # {"type": "move", "side": "l"},
+    # {"type": "hand", "side": "r"},
+    # {"type": "move", "side": "r"}]
+

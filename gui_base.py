@@ -215,7 +215,7 @@ class GuiBase:
         intro_text.pos = (0, 0.3)
 
         experiment_env.image = pipeline
-        experiment_env.size = (1.3, 0.8)
+        experiment_env.size = (1.1, 0.8)
         experiment_env.pos = (-0.02, -0.55)
 
         intro_text.draw()
