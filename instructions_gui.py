@@ -18,6 +18,8 @@ intro_text = ["Hello dear participant! Welcome to our experiment!",
 
 if __name__ == "__main__":
     data_file = "trials.txt"
+
+
     def parse(d):
         dictionary = dict()
         # Removes curly braces and splits the pairs into a list
@@ -38,8 +40,12 @@ if __name__ == "__main__":
                 dictionary = parse(l)
                 trial_sequence.append(dictionary)
         data_file.close()
-        # gui = GuiBase(intro_text)
-        # gui.start(trial_sequence)
+        # trial_sequence = [{"type": "hand", "side": "l"},
+        # {"type": "move", "side": "l"},
+        # {"type": "hand", "side": "r"},
+        # {"type": "move", "side": "r"}]
+        gui = GuiBase(intro_text)
+        gui.start(trial_sequence)
     except:
         print("Something unexpected occurred!")
 
@@ -47,4 +53,3 @@ if __name__ == "__main__":
     # {"type": "move", "side": "l"},
     # {"type": "hand", "side": "r"},
     # {"type": "move", "side": "r"}]
-
