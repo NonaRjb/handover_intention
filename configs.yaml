@@ -6,3 +6,4 @@ CONSTANTS:
   PREP_DUR: 2
   EXEC_DUR: 5
   REST_DUR: "inf"
+  MARKER_DUR: 0.01

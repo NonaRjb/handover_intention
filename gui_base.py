@@ -80,7 +80,7 @@ class GuiBase:
         experiment_env = visual.ImageStim(
             image=env_img,
             units="norm",
-            pos=(0, -0.5),
+            pos=(0.05, -0.5),
             size=(0.4, 0.7),
             win=self.win
         )
@@ -176,6 +176,10 @@ class GuiBase:
             event.clearEvents()
 
         # fifth page
+        img2.pos = (-0.25, -0.6)
+        img3.pos = (0.25, -0.6)
+        img2.size = (0.4, 0.8)
+        img3.size = (0.4, 0.8)
         img2.image = move_1
         img3.image = move_2
 
@@ -215,7 +219,7 @@ class GuiBase:
         intro_text.pos = (0, 0.3)
 
         experiment_env.image = pipeline
-        experiment_env.size = (1.1, 0.8)
+        experiment_env.size = (0.7, 0.85)
         experiment_env.pos = (-0.02, -0.55)
 
         intro_text.draw()
@@ -240,10 +244,10 @@ class GuiBase:
         return
 
     def trial_manager(self, trial_sequence):
-        instruction_images = [os.path.join(CONFIG.PATHS.IMGS, "hand_l.png"),
-                              os.path.join(CONFIG.PATHS.IMGS, "hand_r.png"),
-                              os.path.join(CONFIG.PATHS.IMGS, "move_l.png"),
-                              os.path.join(CONFIG.PATHS.IMGS, "move_r.png")]
+        instruction_images = [os.path.join(CONFIG.PATHS.IMGS, "hand_l_ins.png"),
+                              os.path.join(CONFIG.PATHS.IMGS, "hand_r_ins.png"),
+                              os.path.join(CONFIG.PATHS.IMGS, "move_l_ins.png"),
+                              os.path.join(CONFIG.PATHS.IMGS, "move_r_ins.png")]
         for trial in trial_sequence:
             if trial["type"] == "hand" and trial["side"] == "l":
                 self.trial(instruction_images[0])
@@ -256,10 +260,18 @@ class GuiBase:
 
     def trial(self, env_img):
 
-        w_cross = os.path.join(CONFIG.PATHS.IMGS, "white_cross.png")
+        # w_cross = os.path.join(CONFIG.PATHS.IMGS, "white_cross.png")
         r_cross = os.path.join(CONFIG.PATHS.IMGS, "red_cross.png")
         g_cross = os.path.join(CONFIG.PATHS.IMGS, "green_cross.png")
         font_file = [os.path.join(CONFIG.PATHS.STYLES, "OpenSans-Light.ttf")]
+
+        circle = visual.Circle(
+            win=self.win,
+            units="pix",
+            radius=2,
+            fillColor="red",
+            lineColor="red"
+        )
 
         press_text = visual.TextStim(
             font="Open Sans",
@@ -289,12 +301,16 @@ class GuiBase:
         count_down.wrapWidth = 2
         cnt_down = 3
 
+        event.clearEvents()
+        core.wait(CONFIG.CONSTANTS.MARKER_DUR)
+        self.win.flip()
+
         # Instruction
         instruction_img = visual.ImageStim(
             image=env_img,
             units="norm",
             size=(0.5, 0.9),
-            pos=(0, 0.1),
+            pos=(0.05, 0.1),
             win=self.win
         )
 
@@ -303,6 +319,11 @@ class GuiBase:
         self.win.flip()
         core.wait(CONFIG.CONSTANTS.INS_DUR-cnt_down)
         event.clearEvents()
+        self.win.flip()
+        core.wait(CONFIG.CONSTANTS.MARKER_DUR)
+        event.clearEvents()
+        # self.win.flip()
+
         while cnt_down > 0:
             count_down.text = str(cnt_down)
             instruction_img.draw()
@@ -314,22 +335,25 @@ class GuiBase:
             cnt_down -= 1
 
         event.clearEvents()
+        core.wait(CONFIG.CONSTANTS.MARKER_DUR)
         self.win.flip()
+
+        instruction_img.pos = (0, 0.1)
 
         # Preparation
-        instruction_img.image = w_cross
-        instruction_img.size = (0.2, 0.36)
-        instruction_img.draw()
-        self.marker.draw()
-        self.win.flip()
-        core.wait(CONFIG.CONSTANTS.PREP_DUR)
-        event.clearEvents()
-
-        event.clearEvents()
-        self.win.flip()
+        # instruction_img.image = w_cross
+        # instruction_img.size = (0.2, 0.36)
+        # instruction_img.draw()
+        # self.marker.draw()
+        # self.win.flip()
+        # core.wait(CONFIG.CONSTANTS.PREP_DUR)
+        # event.clearEvents()
+        #
+        # event.clearEvents()
+        # self.win.flip()
 
         # Execution
-        instruction_img.image = r_cross
+        instruction_img.image = g_cross
         instruction_img.size = (0.2, 0.36)
         instruction_img.draw()
         self.marker.draw()
@@ -338,10 +362,11 @@ class GuiBase:
         event.clearEvents()
 
         event.clearEvents()
+        core.wait(CONFIG.CONSTANTS.MARKER_DUR)
         self.win.flip()
 
         # Rest
-        instruction_img.image = g_cross
+        instruction_img.image = r_cross
         instruction_img.size = (0.2, 0.36)
         instruction_img.draw()
         self.marker.draw()
