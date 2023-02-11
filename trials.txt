@@ -1,14 +1,90 @@
-{"type": "hand", "side": "l"}
-{"type": "move", "side": "r"}
-{"type": "move", "side": "l"}
-{"type": "hand", "side": "l"}
-{"type": "hand", "side": "r"}
-{"type": "move", "side": "r"}
-{"type": "hand", "side": "r"}
-{"type": "move", "side": "l"}
-{"type": "move", "side": "l"}
-{"type": "hand", "side": "r"}
-{"type": "move", "side": "l"}
-{"type": "hand", "side": "l"}
-{"type": "hand", "side": "r"}
-{"type": "move", "side": "r"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "joint"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "hand"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "joint"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "hand"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "joint"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "hand"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "joint"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "hand"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "joint"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "hand"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "hand"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "joint"}
+{"type": "hand"}
+{"type": "joint"}
+{"type": "solo"}
+{"type": "solo"}
+{"type": "joint"}
+{"type": "hand"}

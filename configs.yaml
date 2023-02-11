@@ -2,8 +2,10 @@ PATHS:
   IMGS: "/Users/nonarajabi/Desktop/KTH/Projects/handover_intention/images"
   STYLES: "/Users/nonarajabi/Desktop/KTH/Projects/handover_intention/styles"
 CONSTANTS:
-  INS_DUR: 8
+  INS_DUR: 5
   PREP_DUR: 2
-  EXEC_DUR: 5
+  EXEC_DUR: 15
   REST_DUR: "inf"
   MARKER_DUR: 0.01
+  N_TRIALS: 90
+  BREAK: 3

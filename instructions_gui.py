@@ -2,15 +2,7 @@ from gui_base import GuiBase
 import json
 import pickle
 
-intro_text = ["Hello dear participant! Welcome to our experiment!",
-              "In this experiment, you will either hand objects to the robot or move them to another location.",
-              "There are four available object places in front of the robot.",
-              "Two of these object places (one in the left and one in the right) is occupied by objects.",
-              "If the instruction is to move one of the objects, it will look like one of the images below:",
-              "If the instruction is to hand the object to the robot, it will look like one of the images below:",
-              "The instructions for each trial will be visually provided to you at the beginning of that trial. "
-              "Each trial's pipeline looks like this:",
-              "Now let\'s start!\n Press Space Key When You Are Ready"]
+intro_text = ["Hello! Welcome to Our Experiment!\n Press Space Key When You Are Ready to Start"]
 
 if __name__ == "__main__":
     data_file = "trials.txt"
@@ -28,22 +20,22 @@ if __name__ == "__main__":
 
 
     try:
-        # data_file = open(data_file, 'rt')
-        # lines = data_file.read().split('\n')
-        # trial_sequence = []
-        # for l in lines:
-        #     if l != '':
-        #         dictionary = parse(l)
-        #         trial_sequence.append(dictionary)
-        # data_file.close()
-        trial_sequence = [{"type": "hand", "side": "l"},
-                          {"type": "move", "side": "l"},
-                          {"type": "hand", "side": "r"},
-                          {"type": "move", "side": "r"}]
+        data_file = open(data_file, 'rt')
+        lines = data_file.read().split('\n')
+        trial_sequence = []
+        for l in lines:
+            if l != '':
+                dictionary = parse(l)
+                trial_sequence.append(dictionary)
+        data_file.close()
+        # trial_sequence = [{"type": "hand"},
+        #                   {"type": "solo"},
+        #                   {"type": "joint"}]
         gui = GuiBase(intro_text)
         gui.start(trial_sequence)
-    except:
+    except Exception as e:
         print("Something unexpected occurred!")
+        print(e)
 
     # trial_sequence = [{"type": "hand", "side": "l"},
     # {"type": "move", "side": "l"},

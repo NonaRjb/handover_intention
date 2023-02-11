@@ -2,6 +2,7 @@ from psychopy import visual, core, event, monitors
 from psychopy.hardware import keyboard
 import os
 from configs import CONFIG
+from sys import exit
 
 
 class GuiBase:
@@ -50,16 +51,6 @@ class GuiBase:
     def intro(self):
 
         font_file = [os.path.join(CONFIG.PATHS.STYLES, "OpenSans-Light.ttf")]
-        env_img = os.path.join(CONFIG.PATHS.IMGS, "experiment_env.png")
-        env_1 = os.path.join(CONFIG.PATHS.IMGS, "env1.png")
-        env_2 = os.path.join(CONFIG.PATHS.IMGS, "env2.png")
-        env_3 = os.path.join(CONFIG.PATHS.IMGS, "env3.png")
-        env_4 = os.path.join(CONFIG.PATHS.IMGS, "env4.png")
-        hand_1 = os.path.join(CONFIG.PATHS.IMGS, "hand_l.png")
-        hand_2 = os.path.join(CONFIG.PATHS.IMGS, "hand_r.png")
-        move_1 = os.path.join(CONFIG.PATHS.IMGS, "move_l.png")
-        move_2 = os.path.join(CONFIG.PATHS.IMGS, "move_r.png")
-        pipeline = os.path.join(CONFIG.PATHS.IMGS, "pipeline.png")
 
         intro_text = visual.TextStim(
             font="Open Sans",
@@ -75,38 +66,6 @@ class GuiBase:
             alignText="center",
             win=self.win,
             units="norm"
-        )
-
-        experiment_env = visual.ImageStim(
-            image=env_img,
-            units="norm",
-            pos=(0.05, -0.5),
-            size=(0.4, 0.7),
-            win=self.win
-        )
-
-        img1 = visual.ImageStim(
-            units="norm",
-            size=(0.4, 0.7),
-            win=self.win
-        )
-
-        img2 = visual.ImageStim(
-            units="norm",
-            size=(0.4, 0.7),
-            win=self.win
-        )
-
-        img3 = visual.ImageStim(
-            units="norm",
-            size=(0.4, 0.7),
-            win=self.win
-        )
-
-        img4 = visual.ImageStim(
-            units="norm",
-            size=(0.4, 0.7),
-            win=self.win
         )
 
         intro_text.color = "white"
@@ -130,148 +89,46 @@ class GuiBase:
         if "space" in key:
             event.clearEvents()
 
-        # second page
-        intro_text.text = self.intro_text[1]
-
-        intro_text.draw()
-        press_text.draw()
-        self.win.flip()
-        key = self.kb.waitKeys(keyList=['space'], waitRelease=True)
-        if "space" in key:
-            event.clearEvents()
-
-        # third page
-        intro_text.text = self.intro_text[2]
-
-        intro_text.draw()
-        press_text.draw()
-        experiment_env.draw()
-        self.win.flip()
-        key = self.kb.waitKeys(keyList=['space'], waitRelease=True)
-        if "space" in key:
-            event.clearEvents()
-
-        # fourth page
-        img1.image = env_1
-        img2.image = env_2
-        img3.image = env_3
-        img4.image = env_4
-
-        img1.pos = (-0.7, -0.5)
-        img2.pos = (-0.25, -0.5)
-        img3.pos = (0.25, -0.5)
-        img4.pos = (0.7, -0.5)
-
-        intro_text.text = self.intro_text[3]
-
-        intro_text.draw()
-        img1.draw()
-        img2.draw()
-        img3.draw()
-        img4.draw()
-        press_text.draw()
-        self.win.flip()
-        key = self.kb.waitKeys(keyList=['space'], waitRelease=True)
-        if "space" in key:
-            event.clearEvents()
-
-        # fifth page
-        img2.pos = (-0.25, -0.6)
-        img3.pos = (0.25, -0.6)
-        img2.size = (0.4, 0.8)
-        img3.size = (0.4, 0.8)
-        img2.image = move_1
-        img3.image = move_2
-
-        intro_text.text = self.intro_text[4]
-        intro_text.size = (0.2, 0.1)
-        intro_text.pos = (0, 0.4)
-
-        intro_text.draw()
-        press_text.draw()
-        img2.draw()
-        img3.draw()
-        self.win.flip()
-        key = self.kb.waitKeys(keyList=['space'], waitRelease=True)
-        if "space" in key:
-            event.clearEvents()
-
-        # sixth page
-        img2.image = hand_1
-        img3.image = hand_2
-
-        intro_text.text = self.intro_text[5]
-        intro_text.size = (0.2, 0.1)
-        intro_text.pos = (0, 0.4)
-
-        intro_text.draw()
-        press_text.draw()
-        img2.draw()
-        img3.draw()
-        self.win.flip()
-        key = self.kb.waitKeys(keyList=['space'], waitRelease=True)
-        if "space" in key:
-            event.clearEvents()
-
-        # seventh page
-        intro_text.text = self.intro_text[6]
-        intro_text.size = (0.2, 0.1)
-        intro_text.pos = (0, 0.3)
-
-        experiment_env.image = pipeline
-        experiment_env.size = (0.7, 0.85)
-        experiment_env.pos = (-0.02, -0.55)
-
-        intro_text.draw()
-        experiment_env.draw()
-        press_text.draw()
-        self.win.flip()
-        key = self.kb.waitKeys(keyList=['space'], waitRelease=True)
-        if "space" in key:
-            event.clearEvents()
-
-        # eighth page
-        intro_text.text = self.intro_text[7]
-        intro_text.size = (0.2, 0.1)
-
-        intro_text.draw()
-        press_text.draw()
-        self.win.flip()
-        key = self.kb.waitKeys(keyList=['space'], waitRelease=True)
-        if "space" in key:
-            event.clearEvents()
-
         return
 
     def trial_manager(self, trial_sequence):
-        instruction_images = [os.path.join(CONFIG.PATHS.IMGS, "hand_l_ins.png"),
-                              os.path.join(CONFIG.PATHS.IMGS, "hand_r_ins.png"),
-                              os.path.join(CONFIG.PATHS.IMGS, "move_l_ins.png"),
-                              os.path.join(CONFIG.PATHS.IMGS, "move_r_ins.png")]
+        instruction_images = [os.path.join(CONFIG.PATHS.IMGS, "handover.png"),
+                              os.path.join(CONFIG.PATHS.IMGS, "joint.png"),
+                              os.path.join(CONFIG.PATHS.IMGS, "solo.png")]
+
+        cnt = 1
         for trial in trial_sequence:
-            if trial["type"] == "hand" and trial["side"] == "l":
-                self.trial(instruction_images[0])
-            if trial["type"] == "hand" and trial["side"] == "r":
-                self.trial(instruction_images[1])
-            if trial["type"] == "move" and trial["side"] == "l":
-                self.trial(instruction_images[2])
-            if trial["type"] == "move" and trial["side"] == "r":
-                self.trial(instruction_images[3])
+            if trial["type"] == "hand":
+                self.trial(instruction_images[0], cnt)
+            if trial["type"] == "joint":
+                self.trial(instruction_images[1], cnt)
+            if trial["type"] == "solo":
+                self.trial(instruction_images[2], cnt)
+            if cnt == CONFIG.CONSTANTS.BREAK:
+                cnt = 1
+            else:
+                cnt += 1
+        exit(0)
 
-    def trial(self, env_img):
+    def trial(self, env_img, cnt, press_text=None):
 
-        # w_cross = os.path.join(CONFIG.PATHS.IMGS, "white_cross.png")
         r_cross = os.path.join(CONFIG.PATHS.IMGS, "red_cross.png")
         g_cross = os.path.join(CONFIG.PATHS.IMGS, "green_cross.png")
         font_file = [os.path.join(CONFIG.PATHS.STYLES, "OpenSans-Light.ttf")]
 
-        circle = visual.Circle(
+        break_text = visual.TextStim(
+            font="Open Sans",
+            fontFiles=font_file,
+            alignText="center",
+            pos=(0, -0.5),
+            color="white",
             win=self.win,
-            units="pix",
-            radius=2,
-            fillColor="red",
-            lineColor="red"
+            units="norm"
         )
+
+        break_text.text = "Good Job! You Can Now Have a Longer Break (~5 mins)!"
+        break_text.size = (0.1, 0.06)
+        break_text.wrapWidth = 1.5
 
         press_text = visual.TextStim(
             font="Open Sans",
@@ -291,15 +148,29 @@ class GuiBase:
             font="Open Sans",
             fontFiles=font_file,
             alignText="center",
-            pos=(0, -0.1),
+            pos=(0.005, 0.33),
             bold=True,
-            color="yellow",
+            color="Black",
             win=self.win,
             units="norm"
         )
-        count_down.size = (0.5, 0.3)
+        count_down.size = (0.28, 0.18)
         count_down.wrapWidth = 2
-        cnt_down = 3
+        cnt_down = CONFIG.CONSTANTS.INS_DUR
+
+        trial_count = visual.TextStim(
+            font="Open Sans",
+            fontFiles=font_file,
+            alignText="center",
+            pos=(0.0, -0.55),
+            bold=True,
+            color="white",
+            win=self.win,
+            units="norm"
+        )
+        trial_count.size = (0.15, 0.1)
+        trial_count.wrapWidth = 1
+        trial_count.text = f"{cnt}/{CONFIG.CONSTANTS.BREAK}"
 
         event.clearEvents()
         core.wait(CONFIG.CONSTANTS.MARKER_DUR)
@@ -309,16 +180,16 @@ class GuiBase:
         instruction_img = visual.ImageStim(
             image=env_img,
             units="norm",
-            size=(0.5, 0.9),
-            pos=(0.05, 0.1),
+            size=(0.37, 0.95),
+            pos=(0.0, 0.03),
             win=self.win
         )
 
-        instruction_img.draw()
+        # instruction_img.draw()
         self.marker.draw()
-        self.win.flip()
-        core.wait(CONFIG.CONSTANTS.INS_DUR-cnt_down)
-        event.clearEvents()
+        # self.win.flip()
+        # core.wait(CONFIG.CONSTANTS.INS_DUR - cnt_down)
+        # event.clearEvents()
         self.win.flip()
         core.wait(CONFIG.CONSTANTS.MARKER_DUR)
         event.clearEvents()
@@ -328,6 +199,7 @@ class GuiBase:
             count_down.text = str(cnt_down)
             instruction_img.draw()
             count_down.draw()
+            trial_count.draw()
             self.marker.draw()
             self.win.flip()
             core.wait(1)
@@ -338,27 +210,17 @@ class GuiBase:
         core.wait(CONFIG.CONSTANTS.MARKER_DUR)
         self.win.flip()
 
-        instruction_img.pos = (0, 0.1)
-
-        # Preparation
-        # instruction_img.image = w_cross
-        # instruction_img.size = (0.2, 0.36)
-        # instruction_img.draw()
-        # self.marker.draw()
-        # self.win.flip()
-        # core.wait(CONFIG.CONSTANTS.PREP_DUR)
-        # event.clearEvents()
-        #
-        # event.clearEvents()
-        # self.win.flip()
+        instruction_img.pos = (0.0, 0.0)
 
         # Execution
         instruction_img.image = g_cross
-        instruction_img.size = (0.2, 0.36)
+        instruction_img.size = (0.2, 0.43)
         instruction_img.draw()
+        # press_text.draw()
         self.marker.draw()
         self.win.flip()
         core.wait(CONFIG.CONSTANTS.EXEC_DUR)
+        # key = self.kb.waitKeys(maxWait=CONFIG.CONSTANTS.EXEC_DUR, keyList=['space'], waitRelease=True)
         event.clearEvents()
 
         event.clearEvents()
@@ -367,19 +229,29 @@ class GuiBase:
 
         # Rest
         instruction_img.image = r_cross
-        instruction_img.size = (0.2, 0.36)
+        instruction_img.size = (0.2, 0.43)
         instruction_img.draw()
         self.marker.draw()
         if CONFIG.CONSTANTS.REST_DUR == "inf":
+            if cnt == CONFIG.CONSTANTS.BREAK:
+                break_text.draw()
             press_text.draw()
             self.win.flip()
             key = self.kb.waitKeys(keyList=['space'], waitRelease=True)
             if "space" in key:
                 event.clearEvents()
         else:
-            self.win.flip()
-            core.wait(CONFIG.CONSTANTS.PREP_DUR)
-            event.clearEvents()
+            if cnt == CONFIG.CONSTANTS.BREAK:
+                break_text.draw()
+                press_text.draw()
+                self.win.flip()
+                key = self.kb.waitKeys(keyList=['space'], waitRelease=True)
+                if "space" in key:
+                    event.clearEvents()
+            else:
+                self.win.flip()
+                core.wait(CONFIG.CONSTANTS.PREP_DUR)
+                event.clearEvents()
 
     def start(self, trial_sequence):
         self.initial_settings()
